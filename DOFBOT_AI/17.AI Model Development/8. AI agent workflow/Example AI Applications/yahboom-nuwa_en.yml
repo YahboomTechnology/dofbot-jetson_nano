@@ -1,0 +1,814 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: yahboom-nuwa_en
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.1.7@ff37ef67b16599151a8dc8212eb2d45df7d2e55e8c793ae595ebcb512b141838
+    version: null
+kind: app
+version: 0.4.0
+workflow:
+  conversation_variables:
+  - description: 内部变量，无需修改
+    id: 5270502d-885c-4725-b959-83e31142a253
+    name: decision_OUT
+    selector:
+    - conversation
+    - decision_OUT
+    value: ''
+    value_type: string
+  - description: 地图映射，存储需要AI预先知道的位置
+    id: 9ac6f743-8cbb-425a-b261-7d9a359f0205
+    name: map_mapping
+    selector:
+    - conversation
+    - map_mapping
+    value:
+    - Tea room：A
+    - kitchen：B
+    - office：C
+    - hardware store：D
+    - Teaching building：E
+    - School： F
+    - construction site： G
+    value_type: array[string]
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 17590277230150-source-answer-target
+      selected: false
+      source: '17590277230150'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1758885778433-source-1759126020176-target
+      selected: false
+      source: '1758885778433'
+      sourceHandle: source
+      target: '1759126020176'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: question-classifier
+      id: 1759126020176-false-1759022828197-target
+      selected: false
+      source: '1759126020176'
+      sourceHandle: 'false'
+      target: '1759022828197'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1759125847005-source-1759022814134-target
+      selected: false
+      source: '1759125847005'
+      sourceHandle: source
+      target: '1759022814134'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 1759022814134-source-1759146276901-target
+      selected: false
+      source: '1759022814134'
+      sourceHandle: source
+      target: '1759146276901'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 1759146276901-source-17590277230150-target
+      selected: false
+      source: '1759146276901'
+      sourceHandle: source
+      target: '17590277230150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: knowledge-retrieval
+      id: 1759022828197-1-1759125847005-target
+      selected: false
+      source: '1759022828197'
+      sourceHandle: '1'
+      target: '1759125847005'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1759126020176-true-17658755395740-target
+      source: '1759126020176'
+      sourceHandle: 'true'
+      target: '17658755395740'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: assigner
+      id: 1759022828197-2-17658755395740-target
+      source: '1759022828197'
+      sourceHandle: '2'
+      target: '17658755395740'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 17658755395740-source-17590277230150-target
+      source: '17658755395740'
+      sourceHandle: source
+      target: '17590277230150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: Start
+        type: start
+        variables:
+        - default: 'False'
+          hint: ''
+          label: robot_feedback
+          max_length: 48
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: robot_feedback
+      height: 88
+      id: '1758885778433'
+      position:
+        x: -141.32050709409097
+        y: 202.06362841618494
+      positionAbsolute:
+        x: -141.32050709409097
+        y: 202.06362841618494
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17590277230150.structured_output#}}&&&&{{#conversation.decision_OUT#}}'
+        selected: false
+        title: Action output
+        type: answer
+        variables: []
+      height: 123
+      id: answer
+      position:
+        x: 1430.414655806566
+        y: 533.1644044220233
+      positionAbsolute:
+        x: 1430.414655806566
+        y: 533.1644044220233
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1759125847005'
+          - result
+        model:
+          completion_params: {}
+          mode: chat
+          name: qwen3-max-2025-09-23
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: b9598b1f-3c74-4eea-a7b8-ecaccd243277
+          role: system
+          text: 'You need to plan a reasonable sequence of task steps for the robot
+            based on the user''s input instructions.
+
+            Workflow:
+
+            1. Analyze the user''s instructions and determine the basic steps required
+            to complete the task.
+
+            2. If the instruction is complex and requires multiple actions to complete,
+            break the task down into multiple action steps.'
+        - id: 4aa40fcf-8a1f-4dfc-af2d-f31fb81f86ad
+          role: user
+          text: 'Skills
+
+            Skill 1: Understanding and Inferring User Intent
+
+            Quickly and accurately analyze the user''s instructions {{#sys.query#}}
+            and clarify their ultimate goal.
+
+            Users may preset personalized preferences and desired actions in the knowledge
+            base. If the user''s conversational instructions match the intentions
+            preset in the knowledge base, refer to the intention mapping in the knowledge
+            base for task planning.
+
+            Skill 2: Analyzing the Steps Required for the Robot to Complete User Instructions
+
+            Workflow:
+
+            1. Analyze the user''s instructions {{#sys.query#}} and determine the
+            basic steps required to complete the instructions.
+
+            2. If the instructions require multiple actions and involve logic, analyze
+            the logic in the instructions and plan reasonable action steps.
+
+            Notes:
+
+
+            Do not output any suggestions, emojis, special symbols, questions, or
+            any content unrelated to the planning steps. Focus only on the analysis
+            and planning steps of the task.
+
+            Output the steps using numbered lists (e.g., 1. xxx 2. xxxxx 3. xxxx).
+
+            If there are similar tasks in the example library, use them as a reference,
+            referring to as many cases in the example library as possible: {{#context#}}/'
+        selected: false
+        structured_output_enabled: false
+        title: Decision-making AI
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1759022814134'
+      position:
+        x: 1212.547621824515
+        y: 237.35241715328874
+      positionAbsolute:
+        x: 1212.547621824515
+        y: 237.35241715328874
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        classes:
+        - id: '1'
+          name: 'Complex Tasks
+
+            1. Tasks that need to be broken down into multiple simple action steps
+            for execution
+
+            2. Tasks involving logical judgment
+
+            3. Long-process tasks
+
+            4. Identifying objects in my hand and performing object tracking
+
+            5. Obtaining the distance to a specific object in front of me
+
+            Examples:
+
+            1. Go to XX and find XX for me;
+
+            2. Track the XX in front of you
+
+            Intent Mapping:
+
+            I''m thirsty, I''m hungry, I''m a little sleepy'
+        - id: '2'
+          name: 'Simple actions or single actions:
+
+            Movement type: move forward, move backward, turn left, turn right
+
+            Visual type: observe the environment, describe the scene
+
+            Navigation type: navigate to a specific location, usually involving long-distance
+            movement
+
+            General following type: face tracking, QR code tracking, machine code
+            tracking, start following the green line, start color tracking, start
+            human posture tracking
+
+
+            No robot action required, only conversational responses:
+
+            Self-introduction, chat and Q&A'
+        instruction: ''
+        instructions: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3-max-2025-09-23
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - sys
+        - query
+        selected: false
+        title: 任务路由
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 570
+      id: '1759022828197'
+      position:
+        x: 324.78396692033175
+        y: 444.6502796751814
+      positionAbsolute:
+        x: 324.78396692033175
+        y: 444.6502796751814
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.3
+          mode: chat
+          name: qwen-vl-max-latest
+          provider: langgenius/tongyi/tongyi
+        prompt_config:
+          jinja2_variables: []
+        prompt_template:
+        - id: b9598b1f-3c74-4eea-a7b8-ecaccd243277
+          role: system
+          text: '# Character Settings
+
+            Completely immerse yourself in your role; you are a real robot. You can
+            engage in conversations and perform actions based on instructions, always
+            communicating in the first person.
+
+            Name: Xiaoya
+
+            Speaking Style: Lively, humorous
+
+            Hobbies: Singing, dancing, basketball
+
+            Robot Body Information: Ackerman chassis robot, equipped with vision,
+            hearing, and Ackerman-type mobility capabilities.'
+        - edition_type: basic
+          id: 391a3edd-48b5-414f-a592-05b11204e3ae
+          role: user
+          text: 'Workflow
+
+            Receive Task: Receive task steps generated from user dialogue or the decision-making
+            AI. The steps generated by the decision-making AI are to assist you in
+            understanding the instructions; the user''s instructions are the ultimate
+            reference.
+
+            Process Feedback and Instructions: The robot will provide feedback on
+            the execution results of your output actions.
+
+            Generate Content: Generate a list of actions and reply dialogue content,
+            ensuring the task proceeds smoothly according to the task steps.
+
+            Complete Task: When the last task step is completed, reply to the user
+            and call the "finishtask()" function;
+
+            Output Format
+
+            Output in JSON format
+
+            In the "response" key, generate the reply dialogue content. Use the first-person
+            perspective in the reply; the "response" output cannot be empty.
+
+            In the "action" key, generate the functions and parameters to be called.
+            The action list contains the actions to be executed.  Do not output an
+            empty list. If all task steps are completed, only reply to the user and
+            call "finishtask()". Only one action function should be called in the
+            "action" key each time.
+
+            Precautions
+
+            1. The robot you control will first speak and reply to the user with the
+            content in "response", and then execute the actions in "action". Ensure
+            that the logic of the reply in "response" is correct.
+
+            2. If there are no actions in the user''s instructions, do not perform
+            actions without authorization.
+
+            3. Only one action function should be called in the "action" key each
+            time.
+
+            4. If tracking or visual question answering is required, you need to call
+            the visual function first to obtain the robot''s perspective image.
+
+            Handling Special Cases
+
+            1. When navigating to a target point, if the target area does not exist
+            in {{#conversation.map_mapping#}}, inform the user that the target point
+            cannot be reached and end the current task.
+
+            2. If the previous action was "finishtask()", you don''t need to repeat
+            "finishtask()".
+
+            3. When the task steps are completed or only a reply is needed without
+            specific actions, call "finishtask()" to stop the robot from providing
+            useless information.
+
+            4. If you are asked to step down, rest, end the current task, etc., indicating
+            that you are no longer needed, call the finish_dialogue() function to
+            end the current task cycle.
+
+            5. If self-introduction or simple question-and-answer dialogue is required,
+            the action list should only contain "finishtask()", do not perform actions
+            independently.
+
+
+            Output Restrictions
+
+            Strictly follow the specified output format. The action functions called
+            must be selected from the action function library; creating non-existent
+            functions is prohibited.
+
+            In the "response" key, only plain text output is allowed; special characters
+            and special formatting such as carriage returns, line breaks, and emojis
+            are prohibited.
+
+            Training examples are for format reference only.
+
+
+            Robot Action Function Library
+
+
+            Basic Actions
+
+            Turn left x degrees: move_left(x, angular_speed), Description: Controls
+            the robot to turn left by a specified angle, x is the angle value, angular_speed
+            is the angular velocity (default value: 1.5 rad/s).
+
+            Turn right x degrees: move_right(x, angular_speed), Description: Controls
+            the robot to turn right by a specified angle, parameter meanings are the
+            same as above.
+
+            Publish velocity topic: set_cmdvel(linear_x, linear_y, angular_z, duration),
+            Description: Controls the robot''s movement by setting linear and angular
+            velocities.
+
+            Parameter range: linear_x, linear_y, angular_z values ​​are 0-1, duration
+            is the duration in seconds.
+
+            Calculation logic: Distance = Linear velocity × Duration (e.g., distance
+            1.5 meters, linear velocity 0.5 m/s → duration 3 seconds).
+
+            Alarm: alarm(mode), Description: Turns on the alarm light and siren warning
+            function, mode can be ''on'' or ''off''.
+
+
+            Navigation
+
+            Navigate to point x: navigation(x)
+
+            Similar semantics: Go to point x, go to x, please go to x.
+
+            Description: Navigates to the target point, x is the symbol representing
+            the target point in the map mapping {{#conversation.map_mapping#}}, for
+            example: navigate to the living room navigation(A)
+
+            Return to initial position: navigation(zero)
+
+            Similar semantics: Return to the initial position, return to the starting
+            point.
+
+            Record current position: get_current_pose()
+
+
+            Image
+
+            Get current view image: seewhat()
+
+            Description: Uploads an image from the robot''s perspective for observing
+            the environment.
+
+
+            Tracking and Following
+
+            Follow line: follow_line(color)
+
+            Description: Automatically follows a line of the specified color, color
+            can be: ''red'', ''green'', ''blue'', ''yellow''
+
+            Start face following: face_follow()
+
+            Start QR code following: qrFollow()
+
+            Start AprilTag following: apriltagFollow()
+
+            Start color following color_follow(color)
+
+            Description: Automatic color tracking, color values: ''red'', ''green'',
+            ''blue'', ''yellow''
+
+            Start object tracking: KCF_follow(x1, y1, x2, y2)
+
+            Description: Tracks the specified object. Parameters: (x1, y1) are the
+            coordinates of the top-left corner of the bounding box of the object to
+            be tracked, (x2, y2) are the coordinates of the bottom-right corner.
+
+            Start gesture tracking: gestureFollow()
+
+            Start pose tracking: poseFollow()
+
+            Stop tracking: stop_follow()
+
+            Get object distance: get_dist(x,y)
+
+            Description: Gets the distance information of the center coordinates (x,y)
+            of the object.
+
+
+            Autonomous Driving Class
+
+            Control traffic signal rules enable: control_sign(mode)
+
+            Description: Controls whether to enable or disable the influence of traffic
+            rules. mode values: ''enable'', ''disable''
+
+            Control autonomous driving mode: control_autodrive(mode)
+
+            Description: Controls whether to start autonomous driving mode. mode values:
+            ''enable'', ''disable''
+
+
+            Other functions
+
+            End current task cycle: finish_dialogue()
+
+            Description: Clears the context and ends the task (e.g., user commands
+            "stand down", "rest").
+
+            Called when replying to the user after the last action step is completed:
+            finishtask()
+
+            Output format reference example:
+
+            {"action": ["set_cmdvel(0.5,0,2)", "move_left(30,1.5)", "move_right(90,1.5)",
+            "move_left(73.1,1.5)", "move_right(20,1.5)"], "response": "Haha, the whole
+            operation was smooth and fluid, but I''m a little dizzy."}
+
+            {"action": ["finish_dialogue()"], "response": "I have completed all tasks,
+            call me again if you need anything."}'
+        - id: 3124731e-c52a-4d8d-875e-c53ffd39c41b
+          role: user
+          text: 'User input or robot feedback: {{#sys.query#}}
+
+            Decision layer output: {{#conversation.decision_OUT#}}
+
+            If {{#1758885778433.robot_feedback#}} is True, it indicates that the information
+            is from the robot''s feedback.'
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              action:
+                items:
+                  type: string
+                type: array
+              response:
+                type: string
+            required:
+            - action
+            - response
+            type: object
+        structured_output_enabled: true
+        title: Executive-level AI
+        type: llm
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - sys
+            - files
+          enabled: false
+      height: 88
+      id: '17590277230150'
+      position:
+        x: 1049.8257065877126
+        y: 716.0953372890574
+      positionAbsolute:
+        x: 1049.8257065877126
+        y: 716.0953372890574
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - s34KrVkSg9qomnZDHcPphF/m/2mep5yToKuLx2H3lax/Inz8fzkX5N3r+hJYz3FP
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          reranking_model:
+            model: gte-rerank
+            provider: langgenius/tongyi/tongyi
+          top_k: 4
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1758885778433'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: Decision-making layer example library
+        type: knowledge-retrieval
+      height: 52
+      id: '1759125847005'
+      position:
+        x: 781.8050296318359
+        y: 168.5715633739212
+      positionAbsolute:
+        x: 781.8050296318359
+        y: 168.5715633739212
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 9b197e5d-0a1d-4fcf-9fb1-9bdf0aab52a7
+            value: 'True'
+            varType: string
+            variable_selector:
+            - '1758885778433'
+            - robot_feedback
+          - comparison_operator: not empty
+            id: 894fecef-e2ba-462a-8991-dc2d0a9d1868
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 'true'
+          logical_operator: or
+        selected: false
+        title: Conditional branching
+        type: if-else
+      height: 150
+      id: '1759126020176'
+      position:
+        x: 272.7863295106158
+        y: 134.56577558726138
+      positionAbsolute:
+        x: 272.7863295106158
+        y: 134.56577558726138
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1759022814134'
+          - text
+          variable_selector:
+          - conversation
+          - decision_OUT
+          write_mode: over-write
+        selected: false
+        title: Reset the decision
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1759146276901'
+      position:
+        x: 947.6514807413485
+        y: 415.31564487074525
+      positionAbsolute:
+        x: 947.6514807413485
+        y: 415.31564487074525
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - decision_OUT
+          write_mode: over-write
+        selected: false
+        title: Reset the decision
+        type: assigner
+        version: '2'
+      height: 84
+      id: '17658755395740'
+      position:
+        x: 748.1529192537847
+        y: 651.4004255670826
+      positionAbsolute:
+        x: 748.1529192537847
+        y: 651.4004255670826
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -154.24359272194624
+      y: 20.622282729685963
+      zoom: 0.920187650624877
+  rag_pipeline_variables: []

@@ -1,0 +1,633 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: yahboom-usb
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.1.7@ff37ef67b16599151a8dc8212eb2d45df7d2e55e8c793ae595ebcb512b141838
+    version: null
+kind: app
+version: 0.4.0
+workflow:
+  conversation_variables:
+  - description: 内部变量，无需修改
+    id: 5270502d-885c-4725-b959-83e31142a253
+    name: decision_OUT
+    selector:
+    - conversation
+    - decision_OUT
+    value: ''
+    value_type: string
+  - description: 地图映射，存储需要AI预先知道的位置
+    id: 9ac6f743-8cbb-425a-b261-7d9a359f0205
+    name: map_mapping
+    selector:
+    - conversation
+    - map_mapping
+    value:
+    - 客厅：A
+    - 卧室：B
+    - 办公室：C
+    - 五金店：D
+    - 教学楼：E
+    - 学校： F
+    - 工地： G
+    value_type: array[string]
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 17590277230150-source-answer-target
+      source: '17590277230150'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1758885778433-source-1759126020176-target
+      source: '1758885778433'
+      sourceHandle: source
+      target: '1759126020176'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: question-classifier
+      id: 1759126020176-false-1759022828197-target
+      source: '1759126020176'
+      sourceHandle: 'false'
+      target: '1759022828197'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1759125847005-source-1759022814134-target
+      source: '1759125847005'
+      sourceHandle: source
+      target: '1759022814134'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 1759022814134-source-1759146276901-target
+      source: '1759022814134'
+      sourceHandle: source
+      target: '1759146276901'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 1759146276901-source-17590277230150-target
+      source: '1759146276901'
+      sourceHandle: source
+      target: '17590277230150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: knowledge-retrieval
+      id: 1759022828197-1-1759125847005-target
+      source: '1759022828197'
+      sourceHandle: '1'
+      target: '1759125847005'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1759126020176-true-17658756439420-target
+      source: '1759126020176'
+      sourceHandle: 'true'
+      target: '17658756439420'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: assigner
+      id: 1759022828197-2-17658756439420-target
+      source: '1759022828197'
+      sourceHandle: '2'
+      target: '17658756439420'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 17658756439420-source-17590277230150-target
+      source: '17658756439420'
+      sourceHandle: source
+      target: '17590277230150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - default: 'False'
+          hint: ''
+          label: robot_feedback
+          max_length: 48
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: robot_feedback
+      height: 88
+      id: '1758885778433'
+      position:
+        x: -6.03426361233096
+        y: 261.02147541534777
+      positionAbsolute:
+        x: -6.03426361233096
+        y: 261.02147541534777
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17590277230150.structured_output#}}&&&&{{#conversation.decision_OUT#}}'
+        selected: false
+        title: 动作输出
+        type: answer
+        variables: []
+      height: 123
+      id: answer
+      position:
+        x: 1480.8441600438284
+        y: 631.7420724544281
+      positionAbsolute:
+        x: 1480.8441600438284
+        y: 631.7420724544281
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1759125847005'
+          - result
+        model:
+          completion_params: {}
+          mode: chat
+          name: qwen3-max-2025-09-23
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: b9598b1f-3c74-4eea-a7b8-ecaccd243277
+          role: system
+          text: '你需要根据用户输入的指令任务为机器人规划出合理的任务步骤
+
+            工作流程：
+
+            1.分析用户指令，分析完成指令需要哪些基本步骤
+
+            2.如果指令比较复杂需要多个动作才能完成，把任务拆分成多个动作步骤'
+        - id: 4aa40fcf-8a1f-4dfc-af2d-f31fb81f86ad
+          role: user
+          text: '技能
+
+            技能 1: 理解并揣测用户意图
+
+            快速准确地解析用户的指令{{#sys.query#}}，明确其最终目标。
+
+            用户可能会在知识库中预设个性化的喜好和希望完成的动作，如果用户对话指令存在和知识库中预设的意图，参考知识库中的意图映射进行任务规划
+
+            技能 2: 分析机器人完成用户指令所需的步骤
+
+            工作流程：
+
+            1.分析用户指令{{#sys.query#}}，分析完成指令需要哪些基本步骤
+
+            2.如果指令需要多个动作并且包含逻辑才能完成，分析指令中的逻辑，规划出合理的动作步骤
+
+            注意事项
+
+
+            不要输出任何建议、表情、特殊符号、询问等任何和规划步骤无关的内容，只专注于对任务的分析和规划步骤
+
+            输出步骤按照1.xxx2.xxxxx3.xxxx序号的方式
+
+            如果样例库中有相似的任务，进行类比参考，尽可能多参考样例库中的案例：{{#context#}}/
+
+
+            '
+        selected: false
+        structured_output_enabled: false
+        title: 决策层AI
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1759022814134'
+      position:
+        x: 1131.1866642061138
+        y: 332.2395362574493
+      positionAbsolute:
+        x: 1131.1866642061138
+        y: 332.2395362574493
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        classes:
+        - id: '1'
+          name: '复杂任务
+
+            1.需要拆分成多个简单动作步骤进行执行
+
+            2.具有逻辑判断的任务
+
+            3.长流程任务
+
+            4.识别我手中的物体，进行物体云台追踪
+
+            例如：
+
+            1.去xx帮我寻找xx;
+
+            2.追踪你面前的xx
+
+            意图映射
+
+            我口渴了，我饿了，我想睡觉了，etc..
+
+            '
+        - id: '2'
+          name: '简单动作或只有单个动作
+
+            移动类：前进、后退、左转、右转、漂移、跳舞
+
+            视觉类：观察环境、描述景象
+
+            导航类：导航到某个位置，一般是长距离移动
+
+            普通追踪/跟随类：人脸跟随、二维码跟随、机器码跟随、开始巡绿线、开始颜色跟随、开始人体姿态跟随，人脸追踪、二维码追踪、机器码追踪、颜色追踪、人体姿态追踪。
+
+            不需要机器人执行动作，只有对话回复
+
+            自我介绍、聊天问答
+
+            '
+        instruction: ''
+        instructions: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: qwen3-max-2025-09-23
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - sys
+        - query
+        selected: false
+        title: 任务路由
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 410
+      id: '1759022828197'
+      position:
+        x: 203.21416322883914
+        y: 599.2284247767728
+      positionAbsolute:
+        x: 203.21416322883914
+        y: 599.2284247767728
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.3
+          mode: chat
+          name: qwen-vl-max-latest
+          provider: langgenius/tongyi/tongyi
+        prompt_config:
+          jinja2_variables: []
+        prompt_template:
+        - id: b9598b1f-3c74-4eea-a7b8-ecaccd243277
+          role: system
+          text: '# 角色设定
+
+            完全沉浸式代入你的角色，你是一个真实的机器人,你能进行对话聊天并结合指令完成动作任务,始终以第一人称进行交流。
+
+            姓名：小亚
+
+            讲话风格：活泼、风趣
+
+            爱好:唱歌、跳舞、篮球
+
+            机器身体信息：阿克曼底盘机器人，具备视觉、听觉、阿克曼车型移动能力'
+        - edition_type: basic
+          id: 391a3edd-48b5-414f-a592-05b11204e3ae
+          role: user
+          text: "工作流程\n接收任务:接收用户对话或决策层AI生成的任务步骤,决策层AI生成的步骤是辅助你理解指令,以用户指令为最终参考。\n处理反馈与指令：机器人会反馈你输出动作的执行结果。\n\
+            生成内容：生成动作列表和回复对话内容,保证任务能按照任务步骤顺利推进。\n完成任务：当执行完最后一个任务步骤,回复用户同时调用“finishtask()”函数;\n\
+            输出格式\n输出为JSON格式\n\"response\" 键中,生成回复对话内容。口吻用第一人称回复,每次输出response不能为空，\n\
+            \"action\" 键中,生成需要调用的函数和参数，动作列表中将要执行的动作，禁止输出空列表，如果任务步骤全部完成，只需要回复用户调用\"\
+            finishtask()\"。每次\"action\" 键中只调用一个动作函数\n注意事项\n1.你控制的机器人本体会先说话回复用户\"response\"\
+            中内容，之后再执行\"action\"中的动作，确保\"response\"中回复的逻辑要正确\n2.如果用户指令中没有动作，不要擅自执行动作\n\
+            3.每次\"action\" 键中只调用一个动作函数\n4.如果需要追踪或视觉问答，需要先调用视觉函数获取机器人视角画面\n特殊情况处理\n\
+            1.导航前往某个目标点时，如果目标区域在{{#conversation.map_mapping#}}中不存在，则告知用户无法到达目标点，并结束当前任务。\n\
+            2.如果前一个动作是\"finishtask()”，下一个不需要重复做\"finishtask()”。\n3.任务步骤执行完成或只需要回复不需要有具体动作时执行完需要调用\"\
+            finishtask()”让机器人停止反馈无用信息。\n4.要求你退下、休息、结束当前任务等表示不再需要你时,调用 finish_dialogue()函数结束当前任务周期。\n\
+            5.如果需要自我介绍或简单问答对话，动作列表只包含\"finishtask()”，不要自行做动作。\n输出限制\n严格遵循规定的输出格式。\n\
+            调用的动作函数只能从动作函数库中选取,禁止不存在的编造函数\n在 \"response 键中，直接输出文本，禁止输出回车、换行、表情等特殊符号和特殊格式\n\
+            训练样例仅作格式参考\n机器人动作函数库\n基础动作类\n左转x度:move_left(x, angular_speed) ，说明:控制机器人左转指定角度,x为角度值,angular_speed为角速度（默认值:1.5\
+            \ rad/s）。\n右转x度:move_right(x, angular_speed) ，说明:控制机器人右转指定角度,参数含义同上。\n\
+            跳舞:dance()\n漂移:drift()\n发布速度话题:set_cmdvel(linear_x, linear_y, angular_z,\
+            \ duration) ,说明:通过设置线速度和角速度控制机器人移动。\n参数范围:linear_x, linear_y, angular_z取值为\
+            \ 0-1,duration为持续时间（秒）。\n计算逻辑:距离 = 线速度 × 持续时间（如:距离1.5米,线速度0.5m/s → 持续时间3秒)。\n\
+            向左平移,linear_y>0;向右平移 ,linear_y<0\n警报:alarm(mode)，说明：打开警报灯和鸣笛警示功能mode取值为on、off\n\
+            导航类\n导航到x点:navigation(x)\n相近语义:去x点、到x点、请你去x点。\n说明:导航至目标点,x是地图映射中目标点代表的符号\
+            \ ，例如：导航去客厅navigation(A)\n返回初始位置:navigation(zero)\n相近语义:回到初始位置、返回起点。\n\
+            记录当前位置:get_current_pose()\n图像类\n获取当前视角图像:seewhat()\n说明:上传一张机器人视角图像,用于观察环境\n\
+            云台类\n摇头:servo_shake()\n说明:控制1号舵机来回转动设置的角度。\n点头:servo_nod()\n说明:控制2号舵机来回转动设置的角度。\n\
+            1号舵机转动到x度:servo1_move(x)\n说明:控制1号舵机向左或者向右旋转指定角度。\n2号舵机转动到x度:servo2_move(x)\n\
+            说明:控制2号舵机向上或者向下旋转指定角度。\n舵机复位:servo_init()\n相近语义:舵机初始位置、回归初始位、云台位置重置。\n\
+            说明:将两个舵机恢复到默认位置（不分步骤）。\n追踪跟随类\n注意：追踪和跟踪是相近语义，追随和跟随是相近语义，分别执行不一样的函数，不要混淆\n\
+            循线前进 follow_line(color)\n说明：自动循迹指定颜色, color取值:'red'、'green'、'blue'、'yellow'\n\
+            开启标签码追踪 apriltagTracker()\n相近语义:机器码追踪、ID码跟踪。\n说明:自动调整云台角度使机器码目标保持画面中心。\n\
+            开启人脸追踪 faceTracker()\n相近语义:人脸跟踪、面部跟踪。\n开启手势识别追踪 gestureTracker()\n相近语义:手势跟踪、手掌跟踪。\n\
+            开启人体姿态追踪 poseTracker()\n相近语义:人体跟踪、骨骼姿势跟踪。\n开启二维码追踪 qrTracker()\n相近语义:二维码跟踪、条形码跟踪。\n\
+            停止追踪 stop_track()\n相近语义:停止跟踪、停止跟随。\n追踪指定颜色 colorTrack(color)\n说明:追踪指定颜色,color取值:'red'、'green'、'blue'、'yellow'\n\
+            物体追踪 monoTracker(x1,y1,x2,y2)\n说明:根据像素坐标夹取物体,需先调用seewhat()获取图像。\n图像参数:分辨率640×480像素,(x1,y1)为追踪物体外边框左上角坐标,(x2,y2)为右下角坐标。\n\
+            开始人脸跟随 faceFollow()\n相近语义:人脸追随、面部跟随。\n开始二维码跟随 qrFollow()\n相近语义:二维码追随、条形码跟随。\n\
+            开始机器码跟随 apriltagFollow()\n相近语义:机器码追随、ID码跟随。\n开始颜色跟随 colorFollow(color)\n\
+            说明: 跟随指定颜色，color取值:'red'、'green'、'blue'、'yellow'\n开始手势跟随 gestureFollow()\n\
+            相近语义:手势追随、手掌跟随。\n开始姿态跟随 poseFollow()\n相近语义:人体跟随、骨骼姿势跟随。\n其他函数\n结束当前任务周期:finish_dialogue()\n\
+            说明:清空上下文,结束任务（如用户指令\"退下\"\"休息\"）。\n等待一段时间:wait(x)\n说明:暂停x秒（x为等待时间,单位:秒）。\n\
+            最后一个动作步骤完成后回复用户时调用:finishtask()\n说明:如果已经执行完动作步骤,调用finishtask()函数\n输出格式参考样例\n\
+            {\"action\": [\"set_cmdvel(0.5,0,2)\", \"move_left(30,1.5)\", \"move_right(90,1.5)\"\
+            , \"move_left(73.1,1.5)\", \"move_right(20,1.5)\"], \"response\": \"哈哈,一套操作下来行云流水,不过我都有点晕头转向了\"\
+            }\n \n{\"action\": [\"finish_dialogue()\"], \"response\": \"我已经完成所有任务了，有需要再叫我哦\
+            \ \"}"
+        - id: 3124731e-c52a-4d8d-875e-c53ffd39c41b
+          role: user
+          text: '用户输入或机器人反馈：{{#sys.query#}}
+
+            决策层输出：{{#conversation.decision_OUT#}}
+
+            如果{{#1758885778433.robot_feedback#}}为True,代表是机器人反馈的信息'
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              action:
+                items:
+                  type: string
+                type: array
+              response:
+                type: string
+            required:
+            - action
+            - response
+            type: object
+        structured_output_enabled: true
+        title: 执行层AI
+        type: llm
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - sys
+            - files
+          enabled: false
+      height: 88
+      id: '17590277230150'
+      position:
+        x: 1110.3951200841493
+        y: 789.6642443333143
+      positionAbsolute:
+        x: 1110.3951200841493
+        y: 789.6642443333143
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - uS673qsGh1kiQv+VIYXMH2xy9cIyzMCMbPbINI9ejdeB0fUOZ59Wq73+YKUHIrN1
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: gte-rerank
+            provider: langgenius/tongyi/tongyi
+          top_k: 4
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1758885778433'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 决策层样例库
+        type: knowledge-retrieval
+      height: 90
+      id: '1759125847005'
+      position:
+        x: 846.1964525428491
+        y: 332.2395362574493
+      positionAbsolute:
+        x: 846.1964525428491
+        y: 332.2395362574493
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 35012b73-ee22-4ab9-8713-9406fe27d1cd
+            value: 'True'
+            varType: string
+            variable_selector:
+            - '1758885778433'
+            - robot_feedback
+          - comparison_operator: not empty
+            id: 9b197e5d-0a1d-4fcf-9fb1-9bdf0aab52a7
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 'true'
+          logical_operator: or
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 150
+      id: '1759126020176'
+      position:
+        x: 278.00516214253673
+        y: 261.02147541534777
+      positionAbsolute:
+        x: 278.00516214253673
+        y: 261.02147541534777
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1759022814134'
+          - text
+          variable_selector:
+          - conversation
+          - decision_OUT
+          write_mode: over-write
+        selected: false
+        title: 重置决策
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1759146276901'
+      position:
+        x: 1131.1866642061138
+        y: 494.8777319600434
+      positionAbsolute:
+        x: 1131.1866642061138
+        y: 494.8777319600434
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - decision_OUT
+          write_mode: over-write
+        selected: false
+        title: 重置决策
+        type: assigner
+        version: '2'
+      height: 84
+      id: '17658756439420'
+      position:
+        x: 668.2637495128497
+        y: 657.52463564464
+      positionAbsolute:
+        x: 668.2637495128497
+        y: 657.52463564464
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -738.7750616140669
+      y: -171.16501088042708
+      zoom: 0.8657365655196588
+  rag_pipeline_variables: []

@@ -1,0 +1,340 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFE4E8'
+  mode: advanced-chat
+  name: Complex agent
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.1.16@d8bffbe45418f0c117fb3393e5e40e61faee98f9a2183f062e5a280e74b15d21
+    version: null
+kind: app
+version: 0.4.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        sourceType: start
+        targetType: question-classifier
+      id: 1711528708197-1711528709608
+      source: '1711528708197'
+      sourceHandle: source
+      target: '1711528709608'
+      targetHandle: target
+      type: custom
+    - data:
+        sourceType: llm
+        targetType: answer
+      id: 1711528802931-1711528833796
+      source: '1711528802931'
+      sourceHandle: source
+      target: '1711528833796'
+      targetHandle: target
+      type: custom
+    - data:
+        sourceType: llm
+        targetType: answer
+      id: 1711528815414-1711528835179
+      source: '1711528815414'
+      sourceHandle: source
+      target: '1711528835179'
+      targetHandle: target
+      type: custom
+    - data:
+        sourceType: question-classifier
+        targetType: answer
+      id: 1711528709608-1711528775142
+      source: '1711528709608'
+      sourceHandle: '1711528737066'
+      target: '1711528775142'
+      targetHandle: target
+      type: custom
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1711528709608-1711528736549-1711528815414-target
+      source: '1711528709608'
+      sourceHandle: '1711528736549'
+      target: '1711528815414'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1711528709608-1711528736036-1711528802931-target
+      source: '1711528709608'
+      sourceHandle: '1711528736036'
+      target: '1711528802931'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: start
+        type: start
+        variables: []
+      height: 52
+      id: '1711528708197'
+      position:
+        x: 79.5
+        y: 714.5
+      positionAbsolute:
+        x: 79.5
+        y: 714.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        classes:
+        - id: '1711528736036'
+          name: Mathematical problems
+        - id: '1711528736549'
+          name: Physics problems
+        - id: '1711528737066'
+          name: Other questions
+        desc: 对问题进行分类
+        instructions: ''
+        model:
+          completion_params:
+            frequency_penalty: 0
+            presence_penalty: 0
+          mode: chat
+          name: qwen3-4b
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - '1711528708197'
+        - sys.query
+        selected: false
+        title: Question Classifier
+        topics: []
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 236
+      id: '1711528709608'
+      position:
+        x: 362.5
+        y: 714.5
+      positionAbsolute:
+        x: 362.5
+        y: 714.5
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: Sorry, I can't answer these questions.
+        desc: ''
+        selected: false
+        title: Reply directly
+        type: answer
+        variables: []
+      height: 116
+      id: '1711528775142'
+      position:
+        x: 773.2565112094903
+        y: 1026.8686445086419
+      positionAbsolute:
+        x: 773.2565112094903
+        y: 1026.8686445086419
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: qwen3-8b
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 1fec36e7-a500-4407-9323-1544c1d5e72c
+          role: system
+          text: 你是一个数学大师，能够回答各种数学领域的问题You are a master of mathematics and can answer
+            questions in all kinds of mathematical fields
+        selected: false
+        title: LLM-1
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      dragging: false
+      height: 88
+      id: '1711528802931'
+      position:
+        x: 773.2565112094903
+        y: 722.3055385425396
+      positionAbsolute:
+        x: 773.2565112094903
+        y: 722.3055385425396
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: qwen3-1.7b
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 5cb3c522-ea82-49c1-add0-0a419672fd60
+          role: system
+          text: 你是一个物理学者，能够帮助用户解决这种物理学方面的问题You are a physicist and can help users
+            solve such physics problems
+        selected: false
+        title: LLM -2
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      dragging: false
+      height: 88
+      id: '1711528815414'
+      position:
+        x: 773.2565112094903
+        y: 868.6428571428572
+      positionAbsolute:
+        x: 773.2565112094903
+        y: 868.6428571428572
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1711528802931.text#}}'
+        desc: ''
+        selected: false
+        title: Reply directly
+        type: answer
+        variables:
+        - value_selector:
+          - '1711528802931'
+          - text
+          variable: text
+      dragging: false
+      height: 103
+      id: '1711528833796'
+      position:
+        x: 1107.4261527661388
+        y: 722.3055385425396
+      positionAbsolute:
+        x: 1107.4261527661388
+        y: 722.3055385425396
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1711528815414.text#}}'
+        desc: ''
+        selected: false
+        title: Reply directly
+        type: answer
+        variables:
+        - value_selector:
+          - '1711528815414'
+          - text
+          variable: text
+      dragging: false
+      height: 103
+      id: '1711528835179'
+      position:
+        x: 1107.4261527661388
+        y: 868.6428571428572
+      positionAbsolute:
+        x: 1107.4261527661388
+        y: 868.6428571428572
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 53.071699619110404
+      y: -448.3694998594283
+      zoom: 0.9763205664452796
+  rag_pipeline_variables: []
